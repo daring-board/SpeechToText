@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SpeechToText</string>
+    <string name="Recording">Recording</string>
+    <string name="Recording_Stop">Recoding Stop</string>
+    <string name="Play">Play</string>
+    <string name="Playing_Stop">Playing Stop</string>
+    <string name="Texts">Empty</string>
+    <string name="Speech">Speech</string>
+    <string name="Clear">Clear</string>
+</resources>
