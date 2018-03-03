@@ -1,9 +1,6 @@
 package com.example.recoder;
 
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.speech.RecognitionListener;
@@ -15,20 +12,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
@@ -36,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private SpeechRecognizer mRecognizer;
     private RecognitionListener mRecognitionListener;
     private ArrayList<String> sents;
+    private MediaRecorder mp;
+
     // 音声合成用
     private TextToSpeech tts = null;
 
@@ -51,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         setContentView(R.layout.activity_main);
         sents = new ArrayList<String>();
         tts = new TextToSpeech(this, this);
-
+        mp = new MediaRecorder();
 
         mRecognitionListener = new RecognitionListener() {
             @Override
@@ -133,7 +127,22 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         mRecognizer.startListening(intent);
     }
 
+    private Recoding rec = null;
+
+    public void recod(View view){
+        Log.d(TAG, "Recoding start");
+        rec = new Recoding();
+        rec.start();
+    }
+
+    public void stop_recod(View view){
+        Log.d(TAG, "Recoding stop");
+        if(rec == null) return;
+        rec.stop();
+    }
+
     public void start(View view){
+        // 認識
         startSpeechRecognition();
     }
 
